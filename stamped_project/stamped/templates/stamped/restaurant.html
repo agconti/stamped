@@ -74,6 +74,7 @@
 	var rects = svg.selectAll('rects')
 		.data(data);
 	
+	// add rects
 	rects.enter()
 		.append('rect')
 		.attr({
@@ -84,7 +85,8 @@
 	      fill: function(d){return colorscale(d);}
 		});
 
-	svg.selectAll("text")
+	//add text
+	var text = svg.selectAll("text")
      	.data(data)
    		.enter().append("text")
    		.attr({
@@ -93,7 +95,16 @@
    			dy: p[1],
    			dx: ".35em",	
    			"text-anchor": "middle",
-   			fill: 'white'
+   			fill: 'white',
+   			visibility: hidden
+   		})
+   		.on("mouseover", function(){
+   			return text.style('visibility', "visible")
+   						.attr('x', x += 25);
+   		})
+   		.on("mouseout", function(){
+   			return text.style('visibility', "hidden")
+   						.attr('x', x -= 25);
    		})
    		.text(String);
 
